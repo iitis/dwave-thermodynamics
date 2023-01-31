@@ -32,7 +32,7 @@ def pseudo_likelihood(beta_eff, samples):
 
 
 chain_length = 300
-num_samples = 10
+num_samples = 500
 
 h = {i: 0 for i in range(chain_length - 1)}
 J = {(i, i+1): 1.0 for i in range(chain_length-1)}
@@ -54,9 +54,9 @@ mean_E_therm = []
 var_E_therm = []
 
 tic = time.time()
-for anneal_lenght in tqdm(np.linspace(1, 200, num=10)):
+for anneal_lenght in np.linspace(1, 2000, num=50):
     E_fin = []
-    for i in range(num_samples):
+    for i in tqdm(range(num_samples)):
         init_state = np.random.choice([-1,1], size=(chain_length,), p=[1 / 2, 1 / 2])
         #init_state = np.ones(chain_lenght)
         E_init = np.dot(init_state,np.dot(H,init_state))
@@ -69,6 +69,8 @@ for anneal_lenght in tqdm(np.linspace(1, 200, num=10)):
             E_fin.append(np.dot(final_state,np.dot(H,final_state)))
     mean_E_therm.append(np.mean(np.array(E_fin)))
     var_E_therm.append(np.var(np.array(E_fin)))
+    with open("checkpoint.pkl", "wb") as f:
+        pickle.dump([mean_E_therm, var_E_therm], f)
 toc = time.time()
 
 print('Thermalization at s =', anneal_param,'completed.\n')
@@ -91,7 +93,7 @@ for anneal_param in np.linspace(0.1,0.9,num = 9):
     configurations = []
     E_fin = []
     Q = []
-    for i in range(num_samples):
+    for i in tqdm(range(num_samples)):
         # Initial state at infinite temperature
         init_state = np.random.choice([-1,1], size=(chain_length,), p=[1 / 2, 1 / 2])
         E_init = np.dot(init_state,np.dot(H,init_state))
@@ -115,7 +117,7 @@ print('Collected proper work statistics.')
 print('Elapsed time:', toc-tic,'s.\n')
 
 # if you want to save the experimental data
-with open('experimental_results.pkl', 'wb') as f:
+with open('experimental_results_2.pkl', 'wb') as f:
     pickle.dump([mean_E_therm, var_E_therm, beta_eff, mean_E, var_E, mean_Q, var_Q], f)
 
 print('Saved data into ->', f.name)

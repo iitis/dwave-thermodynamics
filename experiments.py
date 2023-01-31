@@ -70,5 +70,9 @@ def forward_anneal(num_samples):
         df.to_csv(f"results/forward/samples_{anneal_param}_{i}.csv")
 
 
+def custom_anneal_schedule():
+    ...
+
+
 if __name__ == "__main__":
     forward_anneal(num_samples)
