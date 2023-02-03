@@ -32,7 +32,7 @@ def pseudo_likelihood(beta_eff, samples):
 
 
 chain_length = 300
-num_samples = 500
+num_samples = 1000
 
 h = {i: 0 for i in range(chain_length - 1)}
 J = {(i, i+1): 1.0 for i in range(chain_length-1)}
@@ -54,7 +54,7 @@ mean_E_therm = []
 var_E_therm = []
 
 tic = time.time()
-for anneal_lenght in np.linspace(1, 2000, num=50):
+for anneal_lenght in np.linspace(1, 200, num=10):
     E_fin = []
     for i in tqdm(range(num_samples)):
         init_state = np.random.choice([-1,1], size=(chain_length,), p=[1 / 2, 1 / 2])
@@ -69,8 +69,6 @@ for anneal_lenght in np.linspace(1, 2000, num=50):
             E_fin.append(np.dot(final_state,np.dot(H,final_state)))
     mean_E_therm.append(np.mean(np.array(E_fin)))
     var_E_therm.append(np.var(np.array(E_fin)))
-    with open("checkpoint.pkl", "wb") as f:
-        pickle.dump([mean_E_therm, var_E_therm], f)
 toc = time.time()
 
 print('Thermalization at s =', anneal_param,'completed.\n')
