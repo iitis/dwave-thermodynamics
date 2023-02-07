@@ -2,8 +2,10 @@ import pickle
 import numpy as np
 import matplotlib.pyplot as plt
 
-with open('experimental_results_1.pkl', 'rb') as f:
+with open('experimental_results_beta1.pkl', 'rb') as f:
     [mean_E_therm, var_E_therm, beta_eff, mean_E, var_E, mean_Q, var_Q] = pickle.load(f)
+
+num_s_bar = 5
 
 print('Loaded data from <-', f.name)
 
@@ -14,13 +16,13 @@ x = np.linspace(1,200,num = 10)
 y = np.array(mean_E_therm)
 plt.figure(num=None, figsize=(10, 7))
 plt.plot(x,y,'o--')
-plt.ylabel(r'$\langle \Delta E_1 \rangle $',fontsize=17)
+plt.ylabel(r'$\langle  E_1 \rangle $',fontsize=17)
 plt.yticks(fontsize=12.5)
 plt.xlabel(r'$t$ $(\mu s)$',fontsize=15)
 plt.xticks(fontsize=12.5)
 plt.show()
 
-x = np.linspace(0,0.9,num = 9)
+x = np.linspace(0,0.9,num = num_s_bar)
 y = np.array(mean_E)
 plt.figure(num=None, figsize=(10, 7))
 plt.plot(x,y,'o--')
@@ -32,7 +34,7 @@ plt.show()
 
 
 
-x = np.linspace(0,0.9,num = 9)
+x = np.linspace(0,0.9,num = num_s_bar)
 y = np.array(var_E)
 plt.figure(num=None, figsize=(10, 7))
 plt.plot(x,y,'o--')
@@ -44,7 +46,7 @@ plt.show()
 
 
 
-x = np.linspace(0.1,0.9,num = 9)
+x = np.linspace(0.1,0.9,num = num_s_bar)
 chain_lenght = 300
 k=mean_Q/np.sqrt(var_Q+np.square(mean_Q))
 y = 2*k*np.arctanh(k)
@@ -59,7 +61,7 @@ plt.show()
 
 
 
-x = np.linspace(0.1,0.9,num = 9)
+x = np.linspace(0.1,0.9,num = num_s_bar)
 chain_lenght = 300
 k=mean_Q/np.sqrt(var_Q+np.square(mean_Q))
 y=2*k*np.arctanh(k)
@@ -73,7 +75,7 @@ plt.xlabel(r'$\bar{s}$',fontsize=17)
 plt.xticks(fontsize=12.5)
 plt.show()
 
-x = np.linspace(0.1,0.9,num = 9)
+x = np.linspace(0.1,0.9,num = num_s_bar)
 chain_lenght = 300
 k=mean_Q/np.sqrt(var_Q+np.square(mean_Q))
 y=2*k*np.arctanh(k)/3.25
