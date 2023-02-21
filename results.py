@@ -2,17 +2,19 @@ import pickle
 import numpy as np
 import matplotlib.pyplot as plt
 
-with open('results/average_spin_energy_s0.99.pkl', 'rb') as f:
+with open('results/average_spin_energy_s0.5_beta1.pkl', 'rb') as f:
     [mean_E_therm, var_E_therm] = pickle.load(f) #beta_eff, mean_E, var_E, mean_Q, var_Q] = pickle.load(f)
 
 num_s_bar = 5
 
+#mean_E_therm = mean_E_therm[10:20]
+
 print('Loaded data from <-', f.name)
 
-with open("checkpoint.pkl", "rb") as f:
-    mean_E_therm_long, var_E_therm_long = pickle.load(f)
+# with open("checkpoint.pkl", "rb") as f:
+#     mean_E_therm_long, var_E_therm_long = pickle.load(f)
 
-x = np.linspace(1,400,num = 20)
+x = np.linspace(1,200,num = 10)
 y = np.array(mean_E_therm)
 plt.figure(num=None, figsize=(10, 7))
 plt.plot(x,y,'o--')
