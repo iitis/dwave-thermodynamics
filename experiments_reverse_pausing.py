@@ -103,7 +103,7 @@ if __name__ == "__main__":
         beta_eff = []
         tic = time.time()
         # vary in time
-        for anneal_length in np.linspace(1, max_anneal_length, num=10):
+        for anneal_length in np.linspace(1.5, max_anneal_length, num=10):
             E_fin = []
             configurations = []
             Q = []
