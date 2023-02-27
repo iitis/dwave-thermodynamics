@@ -104,7 +104,7 @@ if __name__ == "__main__":
         beta_eff_reverse = {}
         tic = time.time()
         # vary in time
-        for anneal_length in np.linspace(1.5, max_anneal_length, num=10):
+        for anneal_length in np.linspace(2, max_anneal_length, num=10):
             for h_val in np.linspace(0.1, max_h, num=10):
                 h = {i: h_val for i in range(chain_length)}
                 J = {(i, i + 1): 1.0 for i in range(chain_length - 1)}
@@ -120,7 +120,7 @@ if __name__ == "__main__":
 
                 raw_data_pause = pd.DataFrame(columns=["sample", "energy", "num_occurrences", "init_state"])
                 raw_data_reverse = pd.DataFrame(columns=["sample", "energy", "num_occurrences", "init_state"])
-                for i in tqdm(range(num_samples), desc=f"samples for tau {anneal_length:.2f} beta {beta}"):
+                for i in tqdm(range(num_samples), desc=f"samples for tau {anneal_length:.2f} h {h_val}"):
                     initial_state = dict(gibbs_sampling_ising(h, J, beta, gibbs_num_steps))
                     init_state = np.array(list(initial_state.values()))
 
@@ -137,14 +137,14 @@ if __name__ == "__main__":
                                                    anneal_schedule=anneal_schedule_reverse,
                                                    num_reads=10)
 
-                    for sample in sampleset_pausing:
-                        final_state = np.array(list(sample.sample.values()))
+                    for sample in sampleset_pausing.record:
+                        final_state = np.array(sample.sample)
                         E_fin_pause.append(sample.energy/chain_length)  # per spin
                         configurations_pause.append(final_state)
                         Q_pause.append(sample.energy/chain_length - E_init)
 
-                    for sample in sampleset_reverse:
-                        final_state = np.array(list(sample.sample.values()))
+                    for sample in sampleset_reverse.record:
+                        final_state = np.array(sample.sample)
                         E_fin_reverse.append(sample.energy/chain_length)  # per spin
                         configurations_reverse.append(final_state)
                         Q_reverse.append(sample.energy/chain_length - E_init)
@@ -164,18 +164,18 @@ if __name__ == "__main__":
                                     sep=";")
 
                 optim_pause = optimize.minimize(pseudo_likelihood, 1.0, args=(np.array(configurations_pause),))
-                beta_eff_pause[(anneal_length, h)] = (optim_pause.x)
-                mean_E_pause[(anneal_length, h)] = (np.mean(np.array(E_fin_pause)))
-                var_E_pause[(anneal_length, h)] = (np.var(np.array(E_fin_pause)))
-                mean_Q_pause[(anneal_length, h)] = (np.mean(np.array(Q_pause)))
-                var_Q_pause[(anneal_length, h)] = (np.var(np.array(Q_pause)))
+                beta_eff_pause[(anneal_length, h_val)] = (optim_pause.x)
+                mean_E_pause[(anneal_length, h_val)] = (np.mean(np.array(E_fin_pause)))
+                var_E_pause[(anneal_length, h_val)] = (np.var(np.array(E_fin_pause)))
+                mean_Q_pause[(anneal_length, h_val)] = (np.mean(np.array(Q_pause)))
+                var_Q_pause[(anneal_length, h_val)] = (np.var(np.array(Q_pause)))
 
                 optim_reverse = optimize.minimize(pseudo_likelihood, 1.0, args=(np.array(configurations_reverse),))
-                beta_eff_reverse[(anneal_length, h)] = (optim_reverse.x)
-                mean_E_reverse[(anneal_length, h)] = (np.mean(np.array(E_fin_reverse)))
-                var_E_pause[(anneal_length, h)] = (np.var(np.array(E_fin_pause)))
-                mean_Q_pause[(anneal_length, h)] = (np.mean(np.array(Q_pause)))
-                var_Q_reverse[(anneal_length, h)] = (np.var(np.array(Q_reverse)))
+                beta_eff_reverse[(anneal_length, h_val)] = (optim_reverse.x)
+                mean_E_reverse[(anneal_length, h_val)] = (np.mean(np.array(E_fin_reverse)))
+                var_E_pause[(anneal_length, h_val)] = (np.var(np.array(E_fin_pause)))
+                mean_Q_pause[(anneal_length, h_val)] = (np.mean(np.array(Q_pause)))
+                var_Q_reverse[(anneal_length, h_val)] = (np.var(np.array(Q_reverse)))
 
                 with open(os.path.join(cwd, "results\\checkpoints", f"checkpoints_h{h_val}_pausing.pkl"), "wb") as f:
                     pickle.dump([beta_eff_pause, mean_E_pause, var_E_pause, mean_Q_pause, var_Q_pause], f)
