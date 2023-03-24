@@ -196,14 +196,14 @@ if __name__ == "__main__":
             df_pause["init_state"] = [initial_state for _ in range(len(df_pause))]
             df_pause["anneal_length"] = [anneal_length for _ in range(len(df_pause))]
             raw_data_pause = pd.concat([raw_data_pause, df_pause], ignore_index=True)
-            raw_data_pause.to_csv(os.path.join(cwd, "results\\raw_data",
+            raw_data_pause.to_csv(os.path.join(cwd, "results", "raw_data",
                                   f"raw_data_{quadrant_name}_pausing_tau_{anneal_length:.2f}.csv"), sep=";")
 
             df_reverse = sampleset_reverse.to_pandas_dataframe(sample_column=True)
             df_reverse["init_state"] = [initial_state for _ in range(len(df_reverse))]
             df_reverse["anneal_length"] = [anneal_length for _ in range(len(df_reverse))]
             raw_data_reverse = pd.concat([raw_data_reverse, df_reverse], ignore_index=True)
-            raw_data_reverse.to_csv(os.path.join(cwd, "results\\raw_data",
+            raw_data_reverse.to_csv(os.path.join(cwd, "results", "raw_data",
                                     f"raw_data_{quadrant_name}_reverse_tau_{anneal_length:.2f}.csv"), sep=";")
 
         optim_pause = optimize.minimize(pseudo_likelihood, 1.0, args=(np.array(configurations_pause),))
@@ -220,9 +220,9 @@ if __name__ == "__main__":
         mean_Q_reverse[anneal_length] = (np.mean(np.array(Q_reverse)))
         var_Q_reverse[anneal_length] = (np.var(np.array(Q_reverse)))
 
-        with open(os.path.join(cwd, "results\\checkpoints", f"checkpoint_{quadrant_name}_pausing.pkl"), "wb") as f:
+        with open(os.path.join(cwd, "results", "checkpoints", f"checkpoint_{quadrant_name}_pausing.pkl"), "wb") as f:
             pickle.dump([beta_eff_pause, mean_E_pause, var_E_pause, mean_Q_pause, var_Q_pause], f)
-        with open(os.path.join(cwd, "results\\checkpoints", f"checkpoint_{quadrant_name}_reverse.pkl"), "wb") as f:
+        with open(os.path.join(cwd, "results", "checkpoints", f"checkpoint_{quadrant_name}_reverse.pkl"), "wb") as f:
             pickle.dump([beta_eff_reverse, mean_E_reverse, var_E_reverse, mean_Q_reverse, var_Q_reverse], f)
 
 
