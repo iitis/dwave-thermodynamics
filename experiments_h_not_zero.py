@@ -173,8 +173,8 @@ if __name__ == "__main__":
                 optim_reverse = optimize.minimize(pseudo_likelihood, 1.0, args=(np.array(configurations_reverse),))
                 beta_eff_reverse[(anneal_length, h_val)] = (optim_reverse.x)
                 mean_E_reverse[(anneal_length, h_val)] = (np.mean(np.array(E_fin_reverse)))
-                var_E_pause[(anneal_length, h_val)] = (np.var(np.array(E_fin_pause)))
-                mean_Q_pause[(anneal_length, h_val)] = (np.mean(np.array(Q_pause)))
+                var_E_reverse[(anneal_length, h_val)] = (np.var(np.array(E_fin_reverse)))
+                mean_Q_reverse[(anneal_length, h_val)] = (np.mean(np.array(Q_reverse)))
                 var_Q_reverse[(anneal_length, h_val)] = (np.var(np.array(Q_reverse)))
 
                 with open(os.path.join(cwd, "results\\checkpoints", f"checkpoints_h{h_val}_pausing.pkl"), "wb") as f:
