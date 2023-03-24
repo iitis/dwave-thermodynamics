@@ -164,10 +164,10 @@ if __name__ == "__main__":
             # due to random nature of finding embedding, sometimes this function fails to find an embedding. Running it
             # again should work in the vast majority of cases.
             try:
+                embedding = find_embedding(chain, quadrant, tries=1000)
+            except ValueError:
                 embedding = find_embedding(chain, quadrant)
-            except:
-                embedding = find_embedding(chain, quadrant)
-            sampler = FixedEmbeddingComposite(qpu_sampler, embedding)
+            sampler = FixedEmbeddingComposite(qpu_sampler, embedding, tries=100000)
             
             anneal_schedule_pausing = [[0, 1], [anneal_length * 1 / 3, anneal_param], 
                                        [anneal_length * 2 / 3, anneal_param], [anneal_length, 1]]
