@@ -88,7 +88,7 @@ def energy(s: np.ndarray, h: np.ndarray, J: np.ndarray): return np.dot(np.dot(s,
 if __name__ == "__main__":
 
     # Setup
-    qpu_sampler = DWaveSampler(solver='DW_2000Q_6', token="DEV-b8c9f187f48c67f55e470249d3f94a2b9dfcf98f")
+    qpu_sampler = DWaveSampler(solver='DW_2000Q_6', token="DEV-80189a9b61a4a3ac36b6108495014db532f18d3f")
     target = qpu_sampler.to_networkx_graph()
     middle_label = 1023
 
@@ -129,8 +129,8 @@ if __name__ == "__main__":
     anneal_param = 0.41
     beta = 1
     gibbs_num_steps = 10 ** 4
-    quadrant = Q3
-    quadrant_name = "Q3"
+    quadrant = Q4
+    quadrant_name = "Q4"
 
     mean_E_pause = {}
     var_E_pause = {}
