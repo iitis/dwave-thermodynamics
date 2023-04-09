@@ -77,7 +77,7 @@ Institute of Theoretical and Applied Informatics, Polish Academy of Sciences, Ba
              %  but any date may be explicitly specified
 
 \begin{abstract}
-We study the thermodynamical efficiency of D-Wave quantum annealers subject to reverse and reverse annealing protocols. We show the trade-off between computational precision and its energy cost
+We study the thermodynamical efficiency of D-Wave quantum annealers subject to reverse annealing and pausing protocols. We show the trade-off between computational precision and its energy cost
 
 \end{abstract}
 
@@ -123,13 +123,20 @@ where $g(x)=x\tanh^{-1}{(x)}$.
 
 The thermodynamic efficiency is given by 
 \begin{equation}
-    \eta_{\text{th}} \leq - \frac{ \langle W \rangle}{ \langle Q \rangle}.
+    \eta_{\text{th}} \leq - \frac{ \langle W \rangle}{ \langle Q \rangle},
 \end{equation}
+
+while the computational efficiency can be written as
+\begin{equation}
+    \eta_{\text{comp}} \leq  \frac{ \mathcal{P}_\text{GS}}{ \langle W \rangle}.
+\end{equation}
+Here $\mathcal{P}_\text{GS}$ is the probability to find the ground state of the Hamiltonian, Eq.~\eqref{ham}.
+
 \section{\label{Experiments} Experiments}
 
 \section{\label{conclusion} Conclusion}
 
-\section{Acknoweldgements}
+\section*{Acknoweldgements}
 The authors acknowledge support from the National Science Center (NCN), Poland, under Project No.~2020/38/E/ST3/00269.
 
 \bibliography{bib}
