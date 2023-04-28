@@ -6,14 +6,14 @@ import os
 cwd = os.getcwd()
 
 beta = 1
-dataset = f"results_eff_pausing_beta_{beta}_s_0.5"
+dataset = f"results_eff_reverse_with_h_beta_1_s_0.41_h_1"
 
 if __name__ == "__main__":
     with open(os.path.join(cwd, "results", f"{dataset}.pkl"), "rb") as f:
         prob, dist = pickle.load(f)
 
     fig, ax1 = plt.subplots()
-    title = f"Reverse annealing with pausing and without bias (h) \n for beta = {beta}"
+    title = f"Reverse annealing without pausing and with bias (h=0.1) \n for beta = {beta}"
     plt.title(title)
 
     color1 = "tab:blue"
