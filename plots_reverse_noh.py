@@ -8,8 +8,8 @@ plt.rcParams['font.serif'] = ['Times New Roman']
 plt.rcParams['font.weight'] = 'normal'
 plt.rcParams['mathtext.fontset'] = 'stix'
 
-with open('results/results_pausing_s0.5_beta1.pkl', 'rb') as f:
-    [mean_E_therm, var_E_therm, beta_eff, mean_E, var_E, mean_Q, var_Q] = pickle.load(f)
+with open('results/result_reverse_s0.5_beta1.pkl', 'rb') as f:
+    [beta_eff, mean_E, var_E, mean_Q, var_Q] = pickle.load(f)
 
 num_s_bar = 10
 
@@ -21,7 +21,7 @@ print('Loaded data from <-', f.name)
 #     mean_E_therm_long, var_E_therm_long = pickle.load(f)
 
 x = np.linspace(1,200,num = 10)
-y = np.array(mean_E)/2
+y = np.array(mean_E)
 plt.figure(num=None, figsize=(10, 7))
 plt.plot(x,y,'o--')
 plt.ylabel(r'$\langle  E_1 \rangle $',fontsize=20)
@@ -32,7 +32,7 @@ plt.tight_layout()
 plt.show()
 #
 x = np.linspace(1,200 ,num = num_s_bar)
-y = np.array(mean_Q)/2
+y = np.array(mean_Q)
 plt.figure(num=None, figsize=(10, 7))
 plt.plot(x,y,'o--')
 plt.yticks(fontsize=20)
@@ -59,7 +59,7 @@ plt.show()
 
 x = np.linspace(1,200,num = num_s_bar)
 chain_lenght = 300
-k=mean_Q/(2*np.sqrt(np.array(var_Q)+np.square(np.array(mean_Q)/2)))
+k=mean_Q/(np.sqrt(np.array(var_Q)+np.square(np.array(mean_Q))))
 y = 2*k*np.arctanh(k)
 
 plt.figure(num=None, figsize=(10, 7))
@@ -75,8 +75,8 @@ plt.show()
 
 x = np.linspace(1,200,num = num_s_bar)
 chain_lenght = 300
-k=mean_Q/(2*np.sqrt(np.array(var_Q)+np.square(np.array(mean_Q)/2)))
-y=[2*k[x]*np.arctanh(k[x])/beta_eff[x] + (1-1/beta_eff[x])*mean_Q[x]/2 for x in range(10)]
+k=mean_Q/(np.sqrt(np.array(var_Q)+np.square(np.array(mean_Q))))
+y=[2*k[x]*np.arctanh(k[x])/beta_eff[x] + (1-1/beta_eff[x])*mean_Q[x] for x in range(10)]
 
 plt.figure(num=None, figsize=(10, 7))
 plt.plot(x,y,'o--')
@@ -89,8 +89,8 @@ plt.show()
 
 x = np.linspace(1,200,num = num_s_bar)
 chain_lenght = 300
-k=mean_Q/(2*np.sqrt(np.array(var_Q)+np.square(np.array(mean_Q)/2)))
-y=[-2*k[x]*np.arctanh(k[x])/beta_eff[x] + (1/beta_eff[x])*mean_Q[x]/2 for x in range(10)]
+k=mean_Q/(np.sqrt(np.array(var_Q)+np.square(np.array(mean_Q))))
+y=[-2*k[x]*np.arctanh(k[x])/beta_eff[x] + (1/beta_eff[x])*mean_Q[x] for x in range(10)]
 
 plt.figure(num=None, figsize=(10, 7))
 plt.plot(x,y,'o--')
@@ -103,9 +103,9 @@ plt.show()
 
 x = np.linspace(1,200,num = num_s_bar)
 chain_lenght = 300
-k=mean_Q/(2*np.sqrt(np.array(var_Q)+np.square(np.array(mean_Q)/2)))
-w=[2*k[x]*np.arctanh(k[x])/beta_eff[x] + (1-1/beta_eff[x])*mean_Q[x]/2 for x in range(10)]
-q=[-2*k[x]*np.arctanh(k[x])/beta_eff[x] + (1/beta_eff[x])*mean_Q[x]/2 for x in range(10)]
+k=mean_Q/(np.sqrt(np.array(var_Q)+np.square(np.array(mean_Q))))
+w=[2*k[x]*np.arctanh(k[x])/beta_eff[x] + (1-1/beta_eff[x])*mean_Q[x] for x in range(10)]
+q=[-2*k[x]*np.arctanh(k[x])/beta_eff[x] + (1/beta_eff[x])*mean_Q[x] for x in range(10)]
 eta=[-w[x]/q[x] for x in range(10)]
 
 plt.figure(num=None, figsize=(10, 7))
