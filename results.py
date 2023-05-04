@@ -2,8 +2,8 @@ import pickle
 import numpy as np
 import matplotlib.pyplot as plt
 
-with open('results/results_pausing_s0.5_beta0.1.pkl', 'rb') as f:
-    [mean_E_therm, var_E_therm, beta_eff, mean_E, var_E, mean_Q, var_Q] = pickle.load(f)
+with open('results/results_reverse_Q1.pkl', 'rb') as f:
+    [beta_eff_1, mean_E_1, var_E_1, mean_Q_1, var_Q_1] = pickle.load(f)
 
 num_s_bar = 10
 
