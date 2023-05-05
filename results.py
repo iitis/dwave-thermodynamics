@@ -22,38 +22,41 @@ print('Loaded data from <-', f.name)
 
 x = np.linspace(1,200,num = 10)
 y = np.array(mean_E)/2
-plt.figure(num=None, figsize=(10, 7))
+plt.figure(num=None)
 plt.plot(x,y,'o--')
 plt.ylabel(r'$\langle  E_1 \rangle $',fontsize=20)
 plt.yticks(fontsize=20)
 plt.xlabel(r'$t$ $(\mu s)$',fontsize=20)
 plt.xticks(fontsize=20)
 plt.tight_layout()
-plt.show()
+plt.savefig("figs/reverse pausing/T=1/<E1>.pdf")
+#plt.show()
 #
 x = np.linspace(1,200 ,num = num_s_bar)
-y = np.array(mean_Q)/2
-plt.figure(num=None, figsize=(10, 7))
+y = np.array(beta_eff)
+plt.figure(num=None)
 plt.plot(x,y,'o--')
 plt.yticks(fontsize=20)
-plt.ylabel(r'$\langle \Delta E_1 \rangle$',fontsize=20)
-plt.xlabel(r'$\tau(\mu s)$',fontsize=20)
+plt.ylabel(r'$\beta_2$',fontsize=20)
+plt.xlabel(r'$t (\mu s)$',fontsize=20)
 plt.xticks(fontsize=20)
 plt.tight_layout()
-plt.show()
+plt.savefig("figs/reverse pausing/T=1/beta2.pdf")
+#plt.show()
 
 
 
 x = np.linspace(1, 200,num = num_s_bar)
 y = np.array(var_E)
-plt.figure(num=None, figsize=(10, 7))
+plt.figure(num=None)
 plt.plot(x,y,'o--')
 plt.yticks(fontsize=20)
 plt.ylabel(r'$var(\Delta E_1)$',fontsize=20)
-plt.xlabel(r'$\tau(\mu s)$',fontsize=20)
+plt.xlabel(r'$t (\mu s)$',fontsize=20)
 plt.xticks(fontsize=20)
 plt.tight_layout()
-plt.show()
+plt.savefig("figs/reverse pausing/T=1/<vardeltaE1>.pdf")
+#plt.show()
 
 
 
@@ -62,14 +65,15 @@ chain_lenght = 300
 k=mean_Q/(2*np.sqrt(np.array(var_Q)+np.square(np.array(mean_Q)/2)))
 y = 2*k*np.arctanh(k)
 
-plt.figure(num=None, figsize=(10, 7))
+plt.figure(num=None)
 plt.plot(x,y,'o--')
 plt.yticks(fontsize=20)
 plt.ylabel(r'Lower bound to $\langle \sigma \rangle$',fontsize=20)
-plt.xlabel(r'$\tau(\mu s)$',fontsize=20)
+plt.xlabel(r'$t (\mu s)$',fontsize=20)
 plt.xticks(fontsize=20)
 plt.tight_layout()
-plt.show()
+plt.savefig("figs/reverse pausing/T=1/entropyprod.pdf")
+#plt.show()
 
 
 
@@ -78,28 +82,30 @@ chain_lenght = 300
 k=mean_Q/(2*np.sqrt(np.array(var_Q)+np.square(np.array(mean_Q)/2)))
 y=[2*k[x]*np.arctanh(k[x])/beta_eff[x] + (1-1/beta_eff[x])*mean_Q[x]/2 for x in range(10)]
 
-plt.figure(num=None, figsize=(10, 7))
+plt.figure(num=None)
 plt.plot(x,y,'o--')
 plt.yticks(fontsize=20)
 plt.ylabel(r'Lower bound to $\langle W \rangle$',fontsize=20)
-plt.xlabel(r'$\tau(\mu s)$',fontsize=20)
+plt.xlabel(r'$t (\mu s)$',fontsize=20)
 plt.xticks(fontsize=20)
 plt.tight_layout()
-plt.show()
+plt.savefig("figs/reverse pausing/T=1/<W>.pdf")
+#plt.show()
 
 x = np.linspace(1,200,num = num_s_bar)
 chain_lenght = 300
 k=mean_Q/(2*np.sqrt(np.array(var_Q)+np.square(np.array(mean_Q)/2)))
 y=[-2*k[x]*np.arctanh(k[x])/beta_eff[x] + (1/beta_eff[x])*mean_Q[x]/2 for x in range(10)]
 
-plt.figure(num=None, figsize=(10, 7))
+plt.figure(num=None)
 plt.plot(x,y,'o--')
 plt.yticks(fontsize=20)
 plt.ylabel(r'Lower bound to $\langle \Delta E_2 \rangle$',fontsize=20)
-plt.xlabel(r'$\tau(\mu s)$',fontsize=20)
+plt.xlabel(r'$t (\mu s)$',fontsize=20)
 plt.xticks(fontsize=20)
 plt.tight_layout()
-plt.show()
+plt.savefig("figs/reverse pausing/T=1/<-Q>.pdf")
+#plt.show()
 
 x = np.linspace(1,200,num = num_s_bar)
 chain_lenght = 300
@@ -108,11 +114,12 @@ w=[2*k[x]*np.arctanh(k[x])/beta_eff[x] + (1-1/beta_eff[x])*mean_Q[x]/2 for x in 
 q=[-2*k[x]*np.arctanh(k[x])/beta_eff[x] + (1/beta_eff[x])*mean_Q[x]/2 for x in range(10)]
 eta=[-w[x]/q[x] for x in range(10)]
 
-plt.figure(num=None, figsize=(10, 7))
+plt.figure(num=None)
 plt.plot(x,eta,'o--')
 plt.yticks(fontsize=20)
 plt.ylabel(r'$\eta_{th}$',fontsize=20)
-plt.xlabel(r'$\tau(\mu s)$',fontsize=20)
+plt.xlabel(r'$t (\mu s)$',fontsize=20)
 plt.xticks(fontsize=20)
 plt.tight_layout()
-plt.show()
+plt.savefig("figs/reverse pausing/T=1/efficiency.pdf")
+#plt.show()

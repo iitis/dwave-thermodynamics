@@ -12,8 +12,9 @@ with open('results/results_reverse_s0.41_h.pkl', 'rb') as f:
     [beta_eff, mean_E, var_E, mean_Q, var_Q] = pickle.load(f)
 
 num_s_bar = 10
-
-print(mean_E.keys())
+tau=[2,24,46,68,90,112,134,156]
+# for x in tau:
+#     print(mean_Q[(x,0.5)])
 
 # #mean_E_therm = mean_E_therm[10:20]
 
