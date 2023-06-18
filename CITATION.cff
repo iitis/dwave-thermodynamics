@@ -1,0 +1,18 @@
+# This CITATION.cff file was generated with cffinit.
+# Visit https://bit.ly/cffinit to generate yours today!
+
+cff-version: 1.2.0
+title: dwave-thermodynamics
+message: >-
+  If you use this software, please cite it using the
+  metadata from this file.
+type: software
+authors:
+  - given-names: Tomasz
+    family-names: Śmierzchalski
+  - given-names: Zakaria
+    family-names: Mzaouali
+  - given-names: Bartłomiej
+    family-names: Gardas
+repository-code: 'https://github.com/tomsmierz/dwave-thermodynamics'
+abstract: thermodynamics of d-wave
