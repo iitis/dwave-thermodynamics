@@ -82,17 +82,17 @@ if __name__ == "__main__":
     # Hamiltonian per spin
     H = (np.diag(np.ones(chain_length - 1), -1) + np.diag(np.ones(chain_length - 1), 1)) / chain_length
 
-    qpu_sampler = DWaveSampler(solver='DW_2000Q_6')
+    qpu_sampler = DWaveSampler(token="OBi2-bf11ab4b1a5f98d4d14ea244a5f25e048d6f764c")
     embedding = find_embedding(J, qpu_sampler.edgelist)
     sampler = FixedEmbeddingComposite(qpu_sampler, embedding)
 
-    max_anneal_length = 200
-    num_samples = 1000
+    max_anneal_length = 100
+    num_samples = 100
     anneal_param = 0.5
     #beta = 1
     gibbs_num_steps = 10**4
 
-    for beta in [1, 0.1]:
+    for beta in [1]:
 
         mean_E_therm = []
         var_E_therm = []
@@ -109,8 +109,10 @@ if __name__ == "__main__":
             Q = []
             raw_data = pd.DataFrame(columns=["sample", "energy", "num_occurrences", "init_state"])
             for i in tqdm(range(num_samples), desc=f"samples for tau {anneal_length:.2f} beta {beta}"):
-                initial_state = dict(gibbs_sampling_ising(h, J, beta, gibbs_num_steps))
-                init_state = np.array(list(initial_state.values()))
+                # initial_state = dict(gibbs_sampling_ising(h, J, beta, gibbs_num_steps))
+                # init_state = np.array(list(initial_state.values()))
+                init_state = np.random.choice([-1, 1], size=(chain_length,), p=[1 / 2, 1 / 2])
+                initial_state = dict(enumerate(init_state.tolist()))
 
                 E_init = np.dot(init_state, np.dot(H, init_state))  # per spin
 
@@ -132,7 +134,7 @@ if __name__ == "__main__":
                 df["init_state"] = [initial_state for _ in range(len(df))]
                 raw_data = pd.concat([raw_data, df], ignore_index=True)
                 raw_data.to_csv(os.path.join(cwd, "results\\raw_data",
-                                             f"raw_data_pausing_tau_{anneal_length:.2f}_beta_{beta}_s{anneal_param}.csv"),
+                                             f"raw_data_redo_pausing_tau_{anneal_length:.2f}.csv"),
                                 sep=";")
 
             mean_E_therm.append(np.mean(np.array(E_fin)))
@@ -144,11 +146,11 @@ if __name__ == "__main__":
             mean_Q.append(np.mean(np.array(Q)))
             var_Q.append(np.var(np.array(Q)))
 
-            with open(os.path.join(cwd, "results\\checkpoints", f"checkpoints_s{anneal_param}_pausing.pkl"), "wb") as f:
+            with open(os.path.join(cwd, "results\\checkpoints", f"checkpoints_redo_pausing.pkl"), "wb") as f:
                 pickle.dump([mean_E_therm, var_E_therm, beta_eff, mean_E, var_E, mean_Q, var_Q], f)
 
         toc = time.time()
-        with open(os.path.join("results", f"results_pausing_s{anneal_param}_beta{beta}.pkl"), "wb") as f:
+        with open(os.path.join("results", f"results_redo_pausing.pkl"), "wb") as f:
             pickle.dump([mean_E_therm, var_E_therm, beta_eff, mean_E, var_E, mean_Q, var_Q], f)
         print('Thermalization at s =', anneal_param, 'completed.\n')
         print('Elapsed time:', toc - tic, 's.\n')

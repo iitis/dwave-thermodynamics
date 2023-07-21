@@ -49,7 +49,7 @@ eta_comp=[list(prob.values())[x]/w[x] for x in range(8)]
 fig, ax1 = plt.subplots()
 
 color1 = "tab:blue"
-ax1.set_xlabel(r"$t (\mu s)$", fontsize=20)
+ax1.set_xlabel(r"$\tau \, (\mu s)$", fontsize=20)
 ax1.tick_params(axis="x", labelsize=20)
 ax1.set_ylabel(r"$\eta_{th}$", fontsize=20)
 #ax1.set_ylabel(r"$\mathcal{P}_{GS}$", fontsize=20)

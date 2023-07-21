@@ -88,7 +88,7 @@ def energy(s: np.ndarray, h: np.ndarray, J: np.ndarray): return np.dot(np.dot(s,
 if __name__ == "__main__":
 
     # Setup
-    qpu_sampler = DWaveSampler(solver='DW_2000Q_6', token="DEV-80189a9b61a4a3ac36b6108495014db532f18d3f")
+    qpu_sampler = DWaveSampler(solver='DW_2000Q_6', token="DEV-2ad042d97a9ec5915c767aeed7ac358a5422909f")
     target = qpu_sampler.to_networkx_graph()
     middle_label = 1023
 
@@ -126,7 +126,7 @@ if __name__ == "__main__":
 
     max_time = 100
     num_samples = 100
-    anneal_param = 0.41
+    anneal_param = 0.5
     beta = 1
     gibbs_num_steps = 10 ** 4
     quadrant = Q4
@@ -144,10 +144,10 @@ if __name__ == "__main__":
     var_Q_reverse = {}
     beta_eff_reverse = {}
 
-    raw_data_pause = pd.DataFrame(columns=["init_state", "sample", "energy", "num_occurrences", "anneal_length"])
-    raw_data_reverse = pd.DataFrame(columns=["init_state", "sample", "energy", "num_occurrences", "anneal_length"])
-
     for anneal_length in np.linspace(2, max_time, num=10):
+
+        raw_data_pause = pd.DataFrame(columns=["init_state", "sample", "energy", "num_occurrences", "anneal_length"])
+        raw_data_reverse = pd.DataFrame(columns=["init_state", "sample", "energy", "num_occurrences", "anneal_length"])
         E_fin_pause = []
         configurations_pause = []
         Q_pause = []
@@ -220,14 +220,14 @@ if __name__ == "__main__":
         mean_Q_reverse[anneal_length] = (np.mean(np.array(Q_reverse)))
         var_Q_reverse[anneal_length] = (np.var(np.array(Q_reverse)))
 
-        with open(os.path.join(cwd, "results", "checkpoints", f"checkpoint_{quadrant_name}_pausing.pkl"), "wb") as f:
+        with open(os.path.join(cwd, "results", "checkpoints", f"checkpoint_{quadrant_name}_pausing_v2.pkl"), "wb") as f:
             pickle.dump([beta_eff_pause, mean_E_pause, var_E_pause, mean_Q_pause, var_Q_pause], f)
-        with open(os.path.join(cwd, "results", "checkpoints", f"checkpoint_{quadrant_name}_reverse.pkl"), "wb") as f:
+        with open(os.path.join(cwd, "results", "checkpoints", f"checkpoint_{quadrant_name}_reverse_v2.pkl"), "wb") as f:
             pickle.dump([beta_eff_reverse, mean_E_reverse, var_E_reverse, mean_Q_reverse, var_Q_reverse], f)
 
 
-    with open(os.path.join("results", f"results_pausing_{quadrant_name}.pkl"), "wb") as f:
+    with open(os.path.join("results", f"results_pausing_{quadrant_name}_v2.pkl"), "wb") as f:
         pickle.dump([beta_eff_pause, mean_E_pause, var_E_pause, mean_Q_pause, var_Q_pause], f)
 
-    with open(os.path.join("results", f"results_reverse_{quadrant_name}.pkl"), "wb") as f:
+    with open(os.path.join("results", f"results_reverse_{quadrant_name}_v2.pkl"), "wb") as f:
         pickle.dump([beta_eff_reverse, mean_E_reverse, var_E_reverse, mean_Q_reverse, var_Q_reverse], f)

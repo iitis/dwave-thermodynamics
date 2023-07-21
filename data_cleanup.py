@@ -39,7 +39,7 @@ def clean_quadrant(q, annealing):
                          sep=";")
         df["annealing_time"] = [tau for _ in df.iterrows()]
         new_df = pd.concat([new_df, df], ignore_index=True)
-    new_df.to_csv(os.path.join(cwd, "results", "raw_data", f"Q{q}_{annealing}.csv"),
+    new_df.to_csv(os.path.join(cwd, "results", "raw_data", f"Q{q}_{annealing}_v2.csv"),
                   sep=";", index=False)
 
 
@@ -64,4 +64,4 @@ def clean_reverse(beta):
 
 
 if __name__ == "__main__":
-    clean_reverse_with_h()
+    clean_quadrant(4, "pausing")
