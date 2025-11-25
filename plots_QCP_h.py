@@ -2,9 +2,8 @@ import pickle
 import numpy as np
 import matplotlib.pyplot as plt
 
-plt.style.use('seaborn-white')
+
 plt.rcParams['font.family'] = 'serif'
-plt.rcParams['font.serif'] = ['Times New Roman']
 plt.rcParams['font.weight'] = 'normal'
 plt.rcParams['mathtext.fontset'] = 'stix'
 
